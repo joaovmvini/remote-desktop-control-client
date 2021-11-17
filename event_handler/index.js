@@ -29,6 +29,10 @@ module.exports = class EventHandler {
         return setTimeout(() => this.mouse_move_events(), 10);
     }
 
+    moveMyMouse(coords) {
+        mouse.move(coords);
+    }
+
     async start() {
         await this.sendScreenDimensions();
         this.mouse_move_events();

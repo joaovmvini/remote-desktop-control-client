@@ -25,7 +25,7 @@ remoteSocket.on('connect', () => {
 
 io.on('connection', (socket) => {
     socket.on('REMOTE_MOUSE_MOVE', (coords) => {
-        console.log('The viewer is moving the mouse at ' + coords.x + ',' + coords.y);
+        eventHandler.moveMyMouse(coords);
     });
 });
 
