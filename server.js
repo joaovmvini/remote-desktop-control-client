@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
 
-const remoteSocket = ioc.connect('http://2cf5-177-12-101-74.ngrok.io', { reconnection: true });
+const remoteSocket = ioc.connect('http://localhost:3000', { reconnection: true });
 
 const ScreenSharer = require('./screen_sharer/sharer');
 const sharer = new ScreenSharer(remoteSocket, 2);
@@ -26,6 +26,14 @@ remoteSocket.on('connect', () => {
 io.on('connection', (socket) => {
     socket.on('REMOTE_MOUSE_MOVE', (coords) => {
         eventHandler.moveMyMouse(coords);
+    });
+
+    socket.on('REMOTE_KEYDOWN', (evt) => {
+        eventHandler.fireKeyDown(evt.key);
+    });
+
+    socket.on('REMOTE_MOUSE_DOWN', (evt) => {
+        eventHandler.sendMouseClick(evt.button);
     });
 });
 
